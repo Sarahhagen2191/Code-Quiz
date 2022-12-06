@@ -128,6 +128,39 @@ function correctSoundEffect() {
     audio.play();
   }
 
+  function showResult() {
+    questionWrap.classList.add("hide");
+    endScreen.classList.remove("hide");
+    finalScore.innerText = timeLeft;
+  }
+  
+  function clearAll() {
+    questionTitle.innerHTML = "";
+    choicesOptions.innerHTML = "";
+    feedback.innerHTML = "";
+    feedback.classList.add("hide");
+  }
+
+  function initials() {
+    var inputText = document.getElementById("initials").value;
+  
+    if (timeLeft === 0) {
+      userScore = 0;
+    } else {
+      userScore = timeLeft + 2;
+    }
+  
+    var initial = {
+      initial: inputText,
+      score: userScore,
+    }
+  
+    var scoreListJSON = JSON.stringify(initial);
+  
+    localStorage.setItem("initials", scoreListJSON);
+  
+    window.location.href = "highscores.html";
+  }
 
 
 
