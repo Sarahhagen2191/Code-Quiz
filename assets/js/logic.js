@@ -14,7 +14,7 @@ var startScreen = document.querySelector("#start-screen");
 //Quiz page Values//
 var questionWrap = document.querySelector("#questions");
 var questionTitle = document.querySelector("#question-title");
-var choicesQutput = document.querySelector("#choices");
+var choicesOptions = document.querySelector("#choices");
 
 //End of Quiz page Values//
 var endScreen = document.querySelector("#end-screen");
@@ -26,5 +26,23 @@ var submitButton = document.querySelector("#submit");
 var form = document.querySelector("form");
 
 
+//Function for timer //
+function startTimer() {
+    var countDown = setInterval(() => {
+      time.innerText = timeLeft;
+      timeLeft--;
+      if (currentQuestionIndex > 5) {
+        clearInterval(countDown);
+        timer.classList.add("hide");
+      }
+      if (timeLeft < 0) {
+        clearInterval(countDown);
+        timer.classList.add("hide");
+        timeLeft = 0;
+        time.innerHTML = 0;
+        showResult();
+      }
+    }, 1000);
+  }
   
   
