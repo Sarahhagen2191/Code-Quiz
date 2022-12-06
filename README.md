@@ -3,7 +3,7 @@
 # Description
 This JavaScript Quiz has been done to review some basic JavaScript knowledge. The webapp has been created with javascript, HTML and CSS, and it's using localStorage to save the highscores data.
 
-![08-web-apis-challenge-demo.gif)
+!08-web-apis-challenge-demo.gif
 
 # Table of Contents (Optional)
 - 2 x HTML Files - Index/Highscore 
