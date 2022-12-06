@@ -3,7 +3,7 @@ var currentQuestionIndex = 0;
 //Timer Values//
 var time = document.querySelector("#time");
 var timer = document.querySelector(".timer");
-var timeLeft= 60;
+var timeLeft = 60;
 
 var feedback = document.querySelector("#feedback");
 
@@ -29,20 +29,92 @@ var form = document.querySelector("form");
 //Function for timer //
 function startTimer() {
     var countDown = setInterval(() => {
-      time.innerText = timeLeft;
-      timeLeft--;
-      if (currentQuestionIndex > 5) {
-        clearInterval(countDown);
-        timer.classList.add("hide");
-      }
-      if (timeLeft < 0) {
-        clearInterval(countDown);
-        timer.classList.add("hide");
-        timeLeft = 0;
-        time.innerHTML = 0;
-        showResult();
-      }
+        time.innerText = timeLeft;
+        timeLeft--;
+        if (currentQuestionIndex > 5) {
+            clearInterval(countDown);
+            timer.classList.add("hide");
+        }
+        if (timeLeft < 0) {
+            clearInterval(countDown);
+            timer.classList.add("hide");
+            timeLeft = 0;
+            time.innerHTML = 0;
+            showResult();
+        }
     }, 1000);
-  }
-  
-  
+}
+
+function startQuiz() {
+    var currentQuestion = questions[currentQuestionIndex];
+    var choices = currentQuestion.choices;
+
+    startScreen.classList.add("hide");
+
+    questionTitle.innerText = currentQuestion.title;
+
+    for (var i = 0; i < choices.length; i++) {
+        var choice = choices[i];
+
+        choicesOptions.insertAdjacentHTML(
+            "beforeend",
+            `
+      <button value=${choice} onclick="checkAnswer">${choice}</button>
+      `
+        );
+    }
+    questionWrap.classList.remove("hide");
+}
+
+function checkAnswer(event) {
+    var currentQuestion = questions[currentQuestionIndex];
+    var pickAnswer = event.target.value;
+
+    if (pickAnswer === currentQuestion.answer) {
+        feedback.classList.remove("hide");
+        feedback.innerText = "Correct!";
+        correctSoundEffect();
+        setTimeout(() => {
+            clearAll();
+            currentQuestionIndex++;
+            if (timeLeft == 0) {
+                clearAll();
+                showResult();
+            } else {
+                startQuiz();
+            }
+        }, 1000);
+        if (currentQuestionIndex > 4) {
+            clearAll();
+            showResult();
+        }
+    } else {
+        feedback.classList.remove("hide");
+        feedback.innerText = "Wrong!";
+        worngSoundEffect();
+        timeLeft = timeLeft - 20;
+        setTimeout(() => {
+            clearAll();
+            currentQuestionIndex++;
+            if (timeLeft == 0) {
+                clearAll();
+                showResult();
+            } else {
+                startQuiz();
+            }
+        }, 1000);
+        if (currentQuestionIndex > 4) {
+            clearAll();
+            showResult();
+        }
+    }
+}
+
+
+startButton.addEventListener("click", startQuiz);
+startButton.addEventListener("click", startTimer);
+
+
+
+
+
