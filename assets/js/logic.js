@@ -45,6 +45,8 @@ function startTimer() {
     }, 1000);
 }
 
+
+//Function for startQuiz  //
 function startQuiz() {
     var currentQuestion = questions[currentQuestionIndex];
     var choices = currentQuestion.choices;
@@ -66,6 +68,8 @@ function startQuiz() {
     questionWrap.classList.remove("hide");
 }
 
+
+//Function for checking the answer/question //
 function checkAnswer(event) {
     var currentQuestion = questions[currentQuestionIndex];
     var pickAnswer = event.target.value;
@@ -91,7 +95,7 @@ function checkAnswer(event) {
     } else {
         feedback.classList.remove("hide");
         feedback.innerText = "Wrong!";
-        worngSoundEffect();
+        wrongSoundEffect();
         timeLeft = timeLeft - 20;
         setTimeout(() => {
             clearAll();
@@ -110,10 +114,27 @@ function checkAnswer(event) {
     }
 }
 
+//Function for audiosounds  //
+
+function correctSoundEffect() {
+    var audio = new Audio();
+    audio.src = "assets/sfx/correct.wav";
+    audio.play();
+  }
+  
+  function wrongSoundEffect() {
+    var audio = new Audio();
+    audio.src = "assets/sfx/incorrect.wav";
+    audio.play();
+  }
+
+
+
 
 startButton.addEventListener("click", startQuiz);
 startButton.addEventListener("click", startTimer);
-
+choicesOptions.addEventListener("click", checkAnswer);
+submitButton.addEventListener("click", initials);
 
 
 
